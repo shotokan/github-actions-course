@@ -19,4 +19,4 @@ jobs:
           python-version: "3.13.5"
 
       - name: Run main.py
-        uses: python main.py
+        run: python main.py
