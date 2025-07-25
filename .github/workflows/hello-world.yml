@@ -1,10 +1,11 @@
 name: hello-world
+run-name: I am learning Github Actions!!!
 on:
+  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
     branches: [main]
-  workflow_dispatch:
 jobs:
   run_hello_world:
     runs-on: ubuntu-latest
