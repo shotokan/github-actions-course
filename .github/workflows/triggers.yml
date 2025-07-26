@@ -27,7 +27,7 @@ on:
     types:
       - labeled
   schedule:
-    - cron: "25 10 * * *"
+    - cron: "*/2 * * * *"
 jobs:
   hola-mundo-manual:
     runs-on: ubuntu-latest
