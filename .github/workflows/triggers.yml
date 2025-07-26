@@ -1,0 +1,64 @@
+name: Triggers
+run-name: I am learning about triggers for Github Actions!!!
+on:
+  workflow_dispatch:
+    inputs:
+      lenguaje_favorito:
+        description: "Lenguaje favorito"
+        default: Python
+        required: true
+        type: choice
+        options:
+          - Python
+          - JavaScript
+          - Go
+      nombre:
+        description: "Tu nombre"
+        required: true
+        default: Juan
+        type: string
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "**.py"
+  issues:
+    types:
+      - labeled
+  schedule:
+    - cron: "25 10 * * *"
+jobs:
+  hola-mundo-manual:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13.5"
+      - name: Definir nombre
+        run: echo "USERNAME=${{ inputs.nombre }}" >> $GITHUB_ENV
+      - name: Definir lenguaje
+        run: echo "LANGUAGE=${{ inputs.lenguaje_favorito }}" >> $GITHUB_ENV
+      - name: Correr script
+        run: python main.py
+
+  run_hello_world:
+    if: ${{ github.event_name != 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13.5"
+
+      - name: Define env var
+        run: echo "USERNAME=${{ github.actor }}" >> $GITHUB_ENV
+
+      - name: Run main.py
+        run: python main.py
