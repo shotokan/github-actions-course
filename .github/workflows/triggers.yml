@@ -26,8 +26,6 @@ on:
   issues:
     types:
       - labeled
-  schedule:
-    - cron: "*/5 * * * *"
 jobs:
   hola-mundo-manual:
     runs-on: ubuntu-latest
